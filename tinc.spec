@@ -8,6 +8,8 @@ Group:		Networking/Daemons
 Source0:	http://www.tinc-vpn.org/packages/%{name}-%{version}.tar.gz
 # Source0-md5:	762c0d47bdf1b33a40b19165d9c2761f
 URL:		http://www.tinc-vpn.org/
+BuildRequires:	autoconf >= 2.50
+BuildRequires:	automake
 BuildRequires:	openssl-devel
 BuildRequires:	lzo-devel
 BuildRequires:	zlib-devel
