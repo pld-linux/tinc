@@ -24,8 +24,8 @@ software. This allows VPN sites to share information with each other
 over the Internet without exposing any information to others.
 
 %description -l pl.UTF-8
-tinc jest serwerem VPN, który u¿ywa tunelowania i szyfrowania do
-stworzenia prywatnej sieci pomiêdzy hostem i Internetem. 
+tinc jest serwerem VPN, ktÃ³ry uÅ¼ywa tunelowania i szyfrowania do
+stworzenia prywatnej sieci pomiÄ™dzy hostem i Internetem. 
 
 %prep
 %setup -q
