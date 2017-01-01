@@ -1,31 +1,31 @@
 Summary:	VPN Daemon
 Summary(pl.UTF-8):	Serwer VPN
 Name:		tinc
-Version:	1.0.23
+Version:	1.0.30
 Release:	0.1
 License:	GPL v2+
 Group:		Networking/Daemons
 Source0:	http://www.tinc-vpn.org/packages/%{name}-%{version}.tar.gz
-# Source0-md5:	762c0d47bdf1b33a40b19165d9c2761f
+# Source0-md5:	f3ca1fc1154ed1f2cac408ea06a1c1ca
 URL:		http://www.tinc-vpn.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
-BuildRequires:	openssl-devel
 BuildRequires:	lzo-devel
+BuildRequires:	openssl-devel
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 tinc is a Virtual Private Network (VPN) daemon that uses tunnelling
-and encryption to create a secure private network between hosts on
-the Internet. Because the VPN appears to the IP level network code
-as a normal network device, there is no need to adapt any existing
+and encryption to create a secure private network between hosts on the
+Internet. Because the VPN appears to the IP level network code as a
+normal network device, there is no need to adapt any existing
 software. This allows VPN sites to share information with each other
 over the Internet without exposing any information to others.
 
 %description -l pl.UTF-8
 tinc jest serwerem VPN, który używa tunelowania i szyfrowania do
-stworzenia prywatnej sieci pomiędzy hostem i Internetem. 
+stworzenia prywatnej sieci pomiędzy hostem i Internetem.
 
 %prep
 %setup -q
@@ -70,3 +70,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_infodir}/tinc.info*
 %{_mandir}/man5/tinc.conf.5*
 %{_mandir}/man8/tincd.8*
+%{systemdunitdir}/tinc.service
+%{systemdunitdir}/tinc@.service
+
