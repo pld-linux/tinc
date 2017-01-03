@@ -40,7 +40,8 @@ gzip -dc doc/sample-config.tar.gz | tar xf - -C doc
 %{__autoheader}
 %{__autoconf}
 %{__automake}
-%configure
+%configure \
+	--disable-silent-rules
 %{__make}
 
 %install
