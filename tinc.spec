@@ -2,7 +2,7 @@ Summary:	VPN Daemon
 Summary(pl.UTF-8):	Serwer VPN
 Name:		tinc
 Version:	1.0.30
-Release:	0.1
+Release:	0.2
 License:	GPL v2+
 Group:		Networking/Daemons
 Source0:	http://www.tinc-vpn.org/packages/%{name}-%{version}.tar.gz
@@ -12,8 +12,12 @@ BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	lzo-devel
 BuildRequires:	openssl-devel
+BuildRequires:	rpmbuild(macros) >= 1.647
 BuildRequires:	zlib-devel
+Requires(post,preun,postun):	systemd-units >= 38
+Requires:	systemd-units >= 0.38
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
 
 %description
 tinc is a Virtual Private Network (VPN) daemon that uses tunnelling
@@ -56,11 +60,18 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/postshell
--/usr/sbin/fix-info-dir -c %{_infodir}
+%post	
+%systemd_post %{name}.service
+## /sbin/postshell
+## -/usr/sbin/fix-info-dir -c %{_infodir}
 
-%postun	-p /sbin/postshell
--/usr/sbin/fix-info-dir -c %{_infodir}
+%preun
+%systemd_preun %{name}.service
+
+%postun	
+%systemd_reload
+## /sbin/postshell
+## -/usr/sbin/fix-info-dir -c %{_infodir}
 
 %files
 %defattr(644,root,root,755)
@@ -70,6 +81,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_infodir}/tinc.info*
 %{_mandir}/man5/tinc.conf.5*
 %{_mandir}/man8/tincd.8*
-%{systemdunitdir}/tinc.service
-%{systemdunitdir}/tinc@.service
-
+%{systemdunitdir}/%{name}.service
+%{systemdunitdir}/%{name}@.service
