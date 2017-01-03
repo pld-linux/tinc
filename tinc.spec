@@ -18,7 +18,6 @@ Requires(post,preun,postun):	systemd-units >= 38
 Requires:	systemd-units >= 0.38
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-
 %description
 tinc is a Virtual Private Network (VPN) daemon that uses tunnelling
 and encryption to create a secure private network between hosts on the
@@ -34,50 +33,41 @@ stworzenia prywatnej sieci pomiędzy hostem i Internetem.
 %prep
 %setup -q
 
+gzip -dc doc/sample-config.tar.gz | tar xf - -C doc
+
 %build
 %{__aclocal} -I m4
 %{__autoheader}
 %{__autoconf}
 %{__automake}
-
 %configure
-
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT
-
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/tinc
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-install -d $RPM_BUILD_ROOT/%{_sysconfdir}/tinc
-
-gzip -dc doc/sample-config.tar.gz | tar xf - -C doc
 
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	
+%post
 %systemd_post %{name}.service
-## /sbin/postshell
-## -/usr/sbin/fix-info-dir -c %{_infodir}
 
 %preun
 %systemd_preun %{name}.service
 
-%postun	
+%postun
 %systemd_reload
-## /sbin/postshell
-## -/usr/sbin/fix-info-dir -c %{_infodir}
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_sbindir}/tincd
-%dir %{_sysconfdir}/tinc
 %doc AUTHORS ChangeLog NEWS README doc/sample-config
+%dir %{_sysconfdir}/tinc
+%attr(755,root,root) %{_sbindir}/tincd
 %{_infodir}/tinc.info*
 %{_mandir}/man5/tinc.conf.5*
 %{_mandir}/man8/tincd.8*
