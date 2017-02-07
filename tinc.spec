@@ -1,12 +1,12 @@
 Summary:	VPN Daemon
 Summary(pl.UTF-8):	Serwer VPN
 Name:		tinc
-Version:	1.0.30
-Release:	0.2
+Version:	1.0.31
+Release:	0.1
 License:	GPL v2+
 Group:		Networking/Daemons
 Source0:	http://www.tinc-vpn.org/packages/%{name}-%{version}.tar.gz
-# Source0-md5:	f3ca1fc1154ed1f2cac408ea06a1c1ca
+# Source0-md5:	7a96f7eb12dfd43b21852b4207d860f2
 URL:		http://www.tinc-vpn.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
