@@ -2,7 +2,7 @@ Summary:	VPN Daemon
 Summary(pl.UTF-8):	Serwer VPN
 Name:		tinc
 Version:	1.0.31
-Release:	0.1
+Release:	1
 License:	GPL v2+
 Group:		Networking/Daemons
 Source0:	http://www.tinc-vpn.org/packages/%{name}-%{version}.tar.gz
