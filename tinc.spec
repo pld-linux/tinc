@@ -27,8 +27,12 @@ software. This allows VPN sites to share information with each other
 over the Internet without exposing any information to others.
 
 %description -l pl.UTF-8
-tinc jest serwerem VPN, który używa tunelowania i szyfrowania do
-stworzenia prywatnej sieci pomiędzy hostem i Internetem.
+tinc jest serwerem VPN (Virtual Private Network), który używa
+tunelowania i szyfrowania do stworzenia bezpiecznej, prywatnej sieci
+pomiędzy hostami w Internecie. Ponieważ VPN działa na poziomie sieci
+IP jako normalne urządzenie sieciowe, nie ma potrzeby modyfikowania
+istniejącego oprogramowania. Pozwala to na współdzielenie informacji
+między członkami VPN-u poprzez Internet bez udostępniania ich innym.
 
 %prep
 %setup -q
@@ -47,6 +51,7 @@ gzip -dc doc/sample-config.tar.gz | tar xf - -C doc
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/tinc
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
@@ -57,12 +62,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 %systemd_post %{name}.service
+/usr/sbin/fix-info-dir -c %{_infodir} || :
 
 %preun
 %systemd_preun %{name}.service
 
 %postun
 %systemd_reload
+/usr/sbin/fix-info-dir -c %{_infodir} || :
 
 %files
 %defattr(644,root,root,755)
